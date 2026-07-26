@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: security
+  profiles:
+    active: "${@spring.profiles.active@}" #được thay thế bằng một tên môi trường cụ thể (như dev, prod, test)
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
+
+#mvn clean package -P dung để dọn dẹp, kiểm tra, đóng gói file (.jar) trong project
+#mvn spring-boot:run -P test chỉ định moi truong (ở đây bao gồm test, prod, dev) đã set trong file .yml

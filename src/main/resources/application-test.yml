@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  config:
+    activate:
+      on-profile: test
+open:
+  api:
+    title: API Service
+    version: 1.0.0
+    description: "Presented by TanJava"
+    server-url: http://localhost:${server.port}
+    server-name: Local Server Test

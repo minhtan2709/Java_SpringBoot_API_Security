@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Xác nhận tài khoản / Confirm your account</title>
+    <style>
+        .btn-confirm {
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .btn-confirm:hover {
+            background-color: #3730a3 !important; /* Đổi sang màu xanh đậm hơn khi rê chuột */
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.45) !important;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f6f9; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+       background="cid:bgImage"
+       style="background-image: url('cid:bgImage'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 50px 15px;">
+    <tr>
+        <td align="center">
+            <!-- Main Container -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+
+                <!-- Header Bar -->
+                <tr>
+                    <td style="background-color: #2b3648; padding: 30px; text-align: center;">
+                        <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: 0.5px;">Tan Java Application</h1>
+                    </td>
+                </tr>
+
+                <!-- Body Content -->
+                <tr>
+                    <td style="padding: 40px 34px; color: #4a5568; font-size: 15px; line-height: 1.6;">
+                        <h2 style="color: #2d3748; font-size: 20px; margin-top: 0; margin-bottom: 20px;">Xác thực tài khoản của bạn</h2>
+
+                        <!-- Tên người dùng động -->
+                        <p style="margin-bottom: 15px;">Xin chào <strong th:text="${userName}">Bạn</strong>,</p>
+
+                        <p style="margin-bottom: 20px;">Cảm ơn bạn đã đăng ký tài khoản tại hệ thống. Để hoàn tất quá trình kích hoạt tài khoản, vui lòng nhấn vào nút xác thực bên dưới:</p>
+
+                        <!-- CTA Button -->
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0;">
+                            <tr>
+                                <td align="center">
+                                    <a th:href="${linkConfirm}"
+                                       class="btn-confirm"
+                                       style="background-color: #4f46e5; color: #ffffff; display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: bold; text-decoration: none; border-radius: 6px; box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);">
+                                        Xác thực tài khoản ngay
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                        <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 30px;">
+                            <p style="margin: 0; color: #a0aec0; font-size: 12px; line-height: 1.4;">
+                                * Link xác thực này sẽ hết hạn trong vòng <strong>24 giờ</strong>.<br/>
+                                * Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td style="background-color: #f8fafc; padding: 20px 34px; text-align: center; color: #94a3b8; font-size: 12px; border-top: 1px solid #f1f5f9;">
+                        <p style="margin: 0 0 8px 0;">&copy; <span th:text="${#dates.year(#dates.createNow())}">2026</span> TanJava. All rights reserved.</p>
+                        <p style="margin: 0;">Email này được gửi tự động, vui lòng không phản hồi trực tiếp.</p>
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

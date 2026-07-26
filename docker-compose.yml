@@ -1,0 +1,89 @@
+version: '3.9'
+
+services:
+  zookeeper: #cong cu quan ly va theo doi kafka
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - '22181:2181'
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - '29092:29092'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  api-service:
+    container_name: api-container-1
+    build: #run truc tiep goi Dockerfile
+      context: ./
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - '2709:8080'   #port8080 sinh ra tu Dockerfile se host len port 2709, change port goc nham muc dich che giau, lien quan den secrity
+    networks:
+      - backend
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - ./initdb.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - '5432:5432'
+
+#  redis:
+#    image: redis:6.2-alpine
+#    container_name: redis
+#    hostname: redis
+#    ports:
+#      - '6379:6379'
+#    environment:
+#      - ALLOW_EMPTY_PASSWORD=yes
+#      - REDIS_DISABLE_COMMANDS=FLUSHDB;FLUSHALL
+#    networks:
+#      - backend
+
+  # THÊM ĐOẠN NÀY VÀO CUỐI FILE (Cùng cấp lề với services):
+volumes:
+  postgres:
+
+
+
+  #api-service-test:
+    #container_name: api-container-2
+    #image: api-image-sample
+    #ports:
+      #- '2012:8080'
+    #networks:
+      #- backend
+
+networks:
+  backend:
+    driver: bridge
+
+#build file image:
+  #mvn clean package -P dev
+  #docker build -t api-image-sample .
+#docker run -it -p -8080:8080 --name=api-container api-image-sample
+#docker-compose up -d: su dung lenh nay de run thu cong
+#docker-compose up -d api-service: su dung lenh nay de run truc tiep project tu Dockerfile
+#docker-compose ps -a: xem log
+#docker-compose logs -tf api-service: xem log loi cua service muon xem (o day laf api-service), tf (tell file)

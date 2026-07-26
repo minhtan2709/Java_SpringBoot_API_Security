@@ -1,0 +1,13 @@
+server:
+  port: 8082
+spring:
+  config:
+    activate:
+      on-profile: prod
+open:
+  api:
+    title: API Service
+    version: 1.0.0
+    description: "Presented by TanJava"
+    server-url: http://localhost:${server.port}
+    server-name: Production Server
