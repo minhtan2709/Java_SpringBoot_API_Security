@@ -3,8 +3,19 @@ package com.javaspringboot_tutorial.security.repository;
 import com.javaspringboot_tutorial.security.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+
+    Optional<User> findByEmail(String email);
+
+    Optional<User> findByUsername(String username);
+
+    @Query(value = "select r.name from Role r inner join UserHasRole ur on r.id = ur.user.id where ur.id= :userId")
+    List<User> findAllRolesByUserId(Long userId);
 
 //    //@Query(value = "SELECT * FROM TBL_USER", nativeQuery = true) -> Native SQL
 //    //@Query(value = "select u from User u inner join Address a on u.id = a.userId.id where a.city = :city") //do u.id la int, a.userId là Object nen gay bat dong du lieu

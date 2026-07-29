@@ -2,7 +2,7 @@ spring:
   application:
     name: security
   profiles:
-    active: "${@spring.profiles.active@}" #được thay thế bằng một tên môi trường cụ thể (như dev, prod, test)
+    active: ${SPRING_PROFILES_ACTIVE:dev} #được thay thế bằng một tên môi trường cụ thể (như dev, prod, test)
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

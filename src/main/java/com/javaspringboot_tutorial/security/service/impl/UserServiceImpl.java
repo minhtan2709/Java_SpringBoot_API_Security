@@ -22,6 +22,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -44,6 +46,11 @@ public class UserServiceImpl implements UserService {
     //private final MailService mailService;
     private final KafkaTemplate<String,String> kafkaTemplate;
 
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return username -> userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 
     @Override
     @Transactional //postman tra req loi se khong add vao db

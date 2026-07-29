@@ -54,7 +54,7 @@ public class OpenAPIConfig {
     public GroupedOpenApi groupedOpenApi(){
         return GroupedOpenApi.builder()
                 .group("api-service")
-                .packagesToScan("com.javaspringboot_tutorial.sample1.controller")
+                .packagesToScan("com.javaspringboot_tutorial.security.controller")
                 .build();
 
     }

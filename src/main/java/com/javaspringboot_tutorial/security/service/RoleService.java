@@ -9,7 +9,6 @@ import java.util.List;
 @Service
 public record RoleService(RoleRepository roleRepository) {
 
-    @PostConstruct
     public List<Role> findAll() {
 
         List<Role> roles = roleRepository.findAll();

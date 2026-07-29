@@ -7,10 +7,14 @@ import com.javaspringboot_tutorial.security.util.UserStatus;
 import jakarta.mail.MessagingException;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.io.UnsupportedEncodingException;
 
 public interface UserService {
+
+    UserDetailsService userDetailsService();
+
     long saveUser(UserRequestDTO requestDTO) throws MessagingException, UnsupportedEncodingException;
 
     void updateUser(long userid, UserRequestDTO requestDTO);
